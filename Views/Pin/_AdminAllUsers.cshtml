@@ -1,0 +1,102 @@
+@model List<User>
+@{
+    int? checkSession = Context.Session.GetInt32("UUID");
+    Console.WriteLine(checkSession);
+}
+
+<div class="container m-1">
+    <div class="d-flex justify-content-between align-items-end">
+        <h1 class="mt-3 text-center">Users</h1>
+        @foreach(User user in Model){
+            @if(checkSession == user.UserId && user.PrimaryAdmin) {
+                <a href="/candt/user/admin">Manage Admins</a>
+            }
+        }
+    </div>
+
+    @foreach(User user in Model){
+        @* Calculating age *@
+        DateTime today = DateTime.Now;
+        var a = (today.Year * 100 + today.Month) * 100 + today.Day;
+        var b = (user.Birthday.Year * 100 + user.Birthday.Month) * 100 + user.Birthday.Day;
+        var age = (a-b)/10000;
+        @* =============== *@
+        
+        
+        <div class="card mt-3 rounded">
+            <div class="lead p-2 d-flex justify-content-between align-items-center card-header">
+                <div>Username: @user.Username</div>
+                @if(user.Admin) {
+                    <div class="text-warning">Admin</div>
+                }
+                <div>User Id: @user.UserId</div>
+
+                @* Cannot remove admin *@
+                @if(!user.Admin){
+                    <form 
+                    asp-controller="User" 
+                    asp-action="DeleteUser"
+                    asp-route-deleteUserId="@user.UserId"
+                    method="POST"
+                    >
+                        <button class="btn btn-outline-danger p-1">Remove Account</button>
+                    </form>
+                }
+                @if(!user.Admin && user.UserId != 1 && user.AdminRequest == 1){
+                    <form 
+                        asp-controller="User" 
+                        asp-action="SetAdmin"
+                        asp-route-adminUserId="@user.UserId"
+                        method="POST">
+                            
+                    
+                        <button class="btn btn-outline-success p-1">Set As Admin</button>
+                    </form>
+
+                    <form 
+                        asp-controller="User" 
+                        asp-action="IgnoreAdminRequest"
+                        asp-route-ignoreUserId="@user.UserId"
+                        method="POST">
+                    
+                        <button class="btn btn-outline-warning p-1">Ignore</button>
+                    </form>
+                }
+                else if(user.Admin && user.UserId != 1 && user.AdminRequest == 2  && Context.Session.GetInt32("UUID") != user.UserId)
+                {
+                    <form 
+                        asp-controller="User" 
+                        asp-action="DeleteAdmin"
+                        asp-route-adminUserId="@user.UserId"
+                        method="POST">
+                            
+                            <button class="btn btn-outline-danger">Remove Admin</button>
+                        
+                    </form>
+                }
+                
+            </div>
+            <div class="p-2">
+                @if(user.AdminRequest == 1 && !user.Admin){
+                    <h5 class="text-success">
+                        !! Admin Access Requested
+                    </h5>
+                }
+                else if (user.AdminRequest == 2 && user.Admin){
+                    <h5 class="text-warning">
+                        !! Request to remove access
+                    </h5>
+                }
+                <div>First Name: @user.FirstName</div>
+                <div>Last Name: @user.LastName</div>
+                <div>Email: @user.Email</div>
+                <div>Birthday: @user.Birthday</div>
+                <div>Age: @age</div>
+                <div>Account Created On: @user.CreatedAt</div>
+                <div>Last Updated On: @user.UpdatedAt</div><br>
+            </div>
+
+
+        </div>
+    }
+</div>

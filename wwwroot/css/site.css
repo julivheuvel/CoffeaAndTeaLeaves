@@ -1,0 +1,36 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+img {
+  width: 50px;
+}
+
+
+body {
+  margin-bottom: 60px;
+}
+
+.welcomeimage {
+  width: 25em;
+  opacity: 5%;
+  /* border: 1px black solid; */
+  /* animation: welcome 5s infinite; */
+}
+
+
+/* KEYFRAMES */
+/* @keyframes welcome {
+  0% {left: 0;}
+  100% {right:0;}
+} */

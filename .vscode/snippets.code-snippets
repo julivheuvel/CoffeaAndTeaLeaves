@@ -1,0 +1,245 @@
+{
+	// Place your C# workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript", (not needed if written specifically as a shortcut for a language)
+	// 	"prefix": "what shows as a preview",
+	// 	"body": [
+	// 		"What Gets Written('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+
+
+
+	// $ used for cursor position, $1 is first position, $2+ next position
+	"Console.WriteLine()": {
+		"prefix": "console",
+		"body": [
+			"Console.WriteLine($1);",
+			"$2"
+		],
+		"description": "Log output to console"
+	},
+
+	"ViewBag" : {
+		"prefix": "ViewBag",
+		"body" : [
+			"ViewBag"
+		],
+		"description": "ViewBag"
+	},
+
+	"IActionResult" : {
+		"prefix": "IActionResult",
+		"body" : [
+			"IActionResult"
+		],
+		"description": "IActionResult"
+	},
+
+	"RedirectToAction" : {
+		"prefix": "RedirectToAction",
+		"body" : [
+			"RedirectToAction"
+		],
+		"description": "RedirectToAction"
+	},
+
+	"pragma" : {
+		"prefix": "pragma",
+		"body" : [
+			"#pragma warning disable CS8618"
+		],
+		"description": "#pragma warning disable CS8618"
+	},
+
+	"HttpGet" : {
+		"prefix": "HttpGet",
+		"body": [
+			"[HttpGet]",
+			"$2"
+		],
+		"description": "HttpGet"
+	},
+	"HttpSet" : {
+		"prefix": "HttpSet",
+		"body": [
+			"[HttpSet]",
+			"$2"
+		],
+		"description": "HttpSet"
+	},
+	"HttpPost" : {
+		"prefix": "HttpPost",
+		"body": [
+			"[HttpPost($1)]",
+			"$2"
+		],
+		"description": "HttpPost"
+	},
+
+	"HttpGetRoute" : {
+		"prefix": "HttpGet",
+		"body": [
+			"[HttpGet($1)]",
+			"public IActionResult $2()",
+			"{",
+			"    return $3;",
+			"}"
+		],
+		"description": "HttpGet"
+	},
+
+	"Route" : {
+		"prefix": "Route",
+		"body": [
+			"[Route($1)]",
+			"public ViewResult $2()",
+			"{",
+			"return View( $3);",
+			"}"
+		],
+		"description": "Route"
+	},
+
+	"get;set;" : {
+		"prefix" : "get;set;",
+		"body": [
+			"{ get; set; }",
+			"$1"
+		],
+		"description": "{get;set;}"
+	},
+
+	"foreach cshtml" : {
+		"prefix" : "foreach cshtml",
+		"body": [
+			"@foreach(ModelName i in Model) {",
+			"",
+			"    @i.$1",
+			"}",
+		],
+		"description": "foreach cshtml"
+	},
+
+	"form" : {
+		"prefix" : "form",
+		"body": [
+		"<form ",
+		"    class=\"shadow p-3 rounded\"",
+		"    asp-controller=\"CONTROLLERNAME\" ",
+		"    asp-action=\"ACTION\"",
+		"    method=\"POST\">",
+		"",
+		"    <div class=\"mb-3\">",
+			"        <label asp-for=\"FIELD\"></label>",
+			"        <span asp-validation-for=\"FIELD\" class=\"text-danger font-weight bold\"></span>",
+			"        <input asp-for=\"FIELD\" class=\"form-control\"/>",
+		"    </div>",
+		"",
+		"    <button class=\"btn btn-success\">Submit</button>",
+		"</form>",
+		],
+		"description": "cs form"
+	},
+
+	"program.cs" : {
+		"prefix": "program", 
+		"body" : [ 
+			"//update <ProjectName> with name of project",
+			"using <ProjectName>.Models;",
+			"using Microsoft.EntityFrameworkCore;",
+			"",
+			"",
+			"var builder = WebApplication.CreateBuilder(args);",
+			"builder.Services.AddControllersWithViews();",
+			"builder.Services.AddHttpContextAccessor();  ",
+			"builder.Services.AddSession(); " ,
+			"",
+			"// Create a variable to hold your connection string",
+			"var connectionString = builder.Configuration.GetConnectionString(\"DefaultConnection\");",
+			"builder.Services.AddDbContext<<ProjectName>Context>(options =>",
+			"{", 
+			"    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));",
+			"});",
+			"",
+			"var app = builder.Build();",
+			"",
+			"app.UseStaticFiles();",
+			"app.UseSession(); ",
+			"app.UseRouting();",
+			"app.UseAuthorization();",
+			"",
+			"// Configure the HTTP request pipeline.",
+			"if (!app.Environment.IsDevelopment())",
+			"{",
+			"    app.UseExceptionHandler(\"/Home/Error\");",
+			"}",
+			"",
+			"app.MapControllerRoute(",
+			"    name: \"default\",",
+			"    pattern: \"{controller=Home}/{action=Index}/{id?}\");",
+			"",
+			"app.Run();",
+			"$1"
+			
+		], 
+		"description": "entity program.cs"
+	}, 
+	"appsettings.json" : {
+		"prefix" : "appsettings.json",
+		"body": [
+			"{ " ,
+			"    \"Logging\": {",
+			"        \"LogLevel\": {",      
+			"            \"Default\": \"Information\",",     
+			"            \"Microsoft.AspNetCore\": \"Warning\"",  
+			"        }",
+			"    },",
+			"    \"AllowedHosts\": \"*\", ",
+			"    \"ConnectionStrings\":   ",
+			"    { ",
+			"        \"DefaultConnection\": \"Server=localhost;port=3306;userid=root;password=root;database=<UPDATE_DB>;\"",
+			"    }",
+			"}",
+		],
+		"description": "appsettings.json"
+	},
+
+	"mycontext.cs" : {
+		"prefix" : "mycontext.cs",
+		"body": [
+			"#pragma warning disable CS8618",
+			"// We can disable our warnings safely because we know the framework will assign non-null values ",
+			"// when it constructs this class for us.",
+			"using Microsoft.EntityFrameworkCore;",
+			"namespace YourProjectName.Models;",
+			"// the MyContext class represents a session with our MySQL database, allowing us to query for or save data",
+			"// DbContext is a class that comes from EntityFramework, we want to inherit its features",
+			"public class MyContext : DbContext ",
+			"{"   ,
+				"    // This line will always be here. It is what constructs our context upon initialization  ",
+				"    public MyContext(DbContextOptions options) : base(options) { }    ",
+				"    // We need to create a new DbSet<Model> for every model in our project that is making a table",
+				"    // The name of our table in our database will be based on the name we provide here",
+				"    // This is where we provide a plural version of our model to fit table naming standards    ",
+				"    public DbSet<Monster> Monsters { get; set; } ",
+			"}",
+		],
+		"description": "appsettings.json"
+	}
+}
+
+
+
+
+
+

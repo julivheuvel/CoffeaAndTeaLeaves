@@ -1,0 +1,29 @@
+@model List<Pin>
+
+
+
+<div class="container mt-5">
+    <h1 class="mb-3 text-center">All Pins</h1>
+    
+    @foreach(Pin pin in Model)
+    {
+        <div class="container mb-4 text-center bg-light p-2 rounded">
+            <p class="lead m-0">@pin.Content</p>
+            
+            <p class="mt-1"><small class="text-muted">Created by: @pin.Poster.Username</small></p>
+            
+            @if(Context.Session.GetInt32("UUID") == @pin.Poster.UserId){
+
+            <form 
+            asp-controller="Pin" 
+            asp-action="DeletePin"
+            asp-route-deletePinId="@pin.PinId"
+            class="m-0"
+            method="POST"
+            >
+                <button class="mt-0 btn btn-outline-danger">Delete</button>
+            </form>
+            }
+        </div>
+    }
+</div>

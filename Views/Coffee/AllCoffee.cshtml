@@ -1,0 +1,200 @@
+@model ParentViewModel
+
+
+@{
+    ViewData["Title"] = "Coffee Dashboard - Coffea and Tea Leaves";
+
+    int? checkSession = Context.Session.GetInt32("UUID");
+    Console.WriteLine(checkSession);
+    
+    
+}
+
+<div class="container">
+    <h1>All Coffee</h1>
+    @{
+
+        @* =========================== *@
+        @* Primary Admin => Can add and remove coffee options *@
+        @* =========================== *@
+
+        if(checkSession > 0 && Model.User.PrimaryAdmin)
+        {
+            @* <p>Testington in session!</p> *@
+            <div class="d-flex justify-content-between">
+                <a href="/candt/coffee/admin" class="text-warning">create coffee</a>
+            </div>
+
+            <div class="container d-flex justify-content-evenly mt-4 gap-1 flex-wrap">
+                @foreach(Coffee coffee in Model.AllCoffees)
+                {
+                    <div style="card width: 19rem;">
+                        <img class="card-img-top" src="@coffee.ImgUrl" alt="@coffee.Name">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-cente mb-2r">
+                                <h4 class="card-title">@coffee.Name</h4>
+                                @if(@coffee.Quantity > 0) {
+                                    <div class="btn btn-success p-1 mb-1">Add to Cart</div>
+                                }
+                            </div>
+                            <div class="card-text mb-1">Region: @coffee.Region</div>
+                                @if(@coffee.Quantity == 0 ) {
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="card-text mb-1">Roast: @coffee.Roast</div>
+                                        <h5 class="text-danger">Out Of Stock!!</h5>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                                            <a href="/candt/coffee/@coffee.CoffeeId/edit" class="text-success">Edit</a>
+                                        </div>
+                                        <div class="card-text">$@coffee.Price</div>
+                                    </div>
+                                }
+                                else if(@coffee.Quantity <= 51) {
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="card-text mb-1">Roast: @coffee.Roast</div>
+                                        <h5 class="text-warning">Low Stock!!</h5>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                                            <a href="/candt/coffee/@coffee.CoffeeId/edit" class="text-success">Edit</a>
+                                        </div>
+                                        
+                                        <div class="card-text">$@coffee.Price</div>
+                                    </div>
+                                }   
+                                else {
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="card-text mb-1">Roast: @coffee.Roast</div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                                            <a href="/candt/coffee/@coffee.CoffeeId/edit" class="text-success">Edit</a>
+                                        </div>
+                                        <div class="card-text">$@coffee.Price</div>
+                                    </div>
+                                }
+                            </div>
+                    </div>
+                }
+            </div>
+            
+        }
+
+
+        @* =========================== *@
+        @* View for users in session => can add to cart feature *@
+        @* =========================== *@
+        else if(checkSession > 0)
+        {
+            @* <h1>users in session</h1> *@
+            <div class="container d-flex justify-content-evenly mt-4 gap-1 flex-wrap">
+                @foreach(Coffee coffee in Model.AllCoffees)
+                {
+                    <div class="card mt-1" style="width: 19rem;">
+                        <img class="card-img-top" src="@coffee.ImgUrl" alt="@coffee.Name">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-cente mb-2r">
+                                <h4 class="card-title">@coffee.Name</h4>
+                                @if(@coffee.Quantity > 0) {
+                                    <div class="btn btn-success p-1 mb-1">Add to Cart</div>
+                                }
+                            </div>
+                            <div class="card-text mb-1">Region: @coffee.Region</div>
+                                @if(@coffee.Quantity == 0 ) {
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="card-text mb-1">Roast: @coffee.Roast</div>
+                                        <h5 class="text-danger">Out Of Stock!!</h5>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        @if(Model.User.Admin){
+                                                <div>
+                                                    <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                                                    <a href="/candt/coffee/@coffee.CoffeeId/edit" class="text-success">Edit</a>
+                                                </div>
+                                                <div class="card-text">$@coffee.Price</div>
+                                        }
+                                        else {
+                                            <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                                            <div class="card-text">$@coffee.Price</div>
+
+                                        }
+                                    </div>
+                                        <div class="card-text">$@coffee.Price</div>
+                                    
+                                }
+                                else if(@coffee.Quantity <= 51) {
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="card-text mb-1">Roast: @coffee.Roast</div>
+                                        <h5 class="text-warning">Low Stock!!</h5>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        @if(Model.User.Admin){
+                                                <div>
+                                                    <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                                                    <a href="/candt/coffee/@coffee.CoffeeId/edit" class="text-success">Edit</a>
+                                                </div>
+                                                <div class="card-text">$@coffee.Price</div>
+                                        }
+                                        else {
+                                            <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                                            <div class="card-text">$@coffee.Price</div>
+
+                                        }
+                                    </div>
+                                }   
+                                else {
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="card-text mb-1">Roast: @coffee.Roast</div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        @if(Model.User.Admin){
+                                                <div>
+                                                    <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                                                    <a href="/candt/coffee/@coffee.CoffeeId/edit" class="text-success">Edit</a>
+                                                </div>
+                                                <div class="card-text">$@coffee.Price</div>
+                                        }
+                                        else {
+                                            <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                                            <div class="card-text">$@coffee.Price</div>
+
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                }
+            </div>
+            
+        }
+
+
+        @* =========================== *@
+        @* Public View *@
+        @* =========================== *@
+        else
+        {
+            <div class="container d-flex justify-content-evenly mt-4 gap-1 flex-wrap">
+                @foreach(Coffee coffee in Model.AllCoffees)
+                {
+                    <div class="card" style="width: 19rem;">
+                        <img class="card-img-top" src="@coffee.ImgUrl" alt="@coffee.Name">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-cente mb-2r">
+                                <h4 class="card-title">@coffee.Name</h4>
+                                <div class="card-text">$@coffee.Price</div>
+                            </div>
+                            <div class="card-text mb-1">Region: @coffee.Region</div>
+                            <div class="card-text mb-1">Roast: @coffee.Roast</div>
+                            <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+    }
+}

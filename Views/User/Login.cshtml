@@ -1,0 +1,32 @@
+@model LoginUser
+@{
+    ViewData["Title"] = "Login - Coffea and Tea Leaves";
+}
+
+<div class="container">
+    <h1>Login</h1>
+    
+
+    <form 
+        class="shadow p-3 rounded"
+        asp-controller="User" 
+        asp-action="LoginUser"
+        method="POST">
+
+        <div class="mb-3">
+            <label asp-for="LoginUsername"></label>
+            <span asp-validation-for="LoginUsername" class="text-danger font-weight bold"></span>
+            <input asp-for="LoginUsername" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LoginPassword"></label>
+            <span asp-validation-for="LoginPassword" class="text-danger font-weight bold"></span>
+            <input asp-for="LoginPassword" class="form-control"/>
+        </div>
+        <div class="container d-flex gap-2 align-items-center">
+            <button class="btn btn-success">Login</button>
+            <a href="/candt/user/register">Register</a>
+        </div>
+    </form>
+</div>

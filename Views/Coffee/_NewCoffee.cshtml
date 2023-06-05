@@ -1,0 +1,47 @@
+@model Coffee
+
+
+
+
+<div class="container col">
+    <h1>Create Coffee Form</h1>
+
+    <form 
+        class="shadow p-3 rounded"
+        asp-controller="Coffee" 
+        asp-action="NewCoffee"
+        method="POST">
+    
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <span asp-validation-for="Name" class="text-danger font-weight bold"></span>
+            <input asp-for="Name" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price"></label>
+            <span asp-validation-for="Price" class="text-danger font-weight bold"></span>
+            <input asp-for="Price" type="number" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ImgUrl"></label>
+            <span asp-validation-for="ImgUrl" class="text-danger font-weight bold"></span>
+            <input asp-for="ImgUrl" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Region"></label>
+            <span asp-validation-for="Region" class="text-danger font-weight bold"></span>
+            <input asp-for="Region" class="form-control"/>
+        </div><div class="mb-3">
+            <label asp-for="Roast"></label>
+            <span asp-validation-for="Roast" class="text-danger font-weight bold"></span>
+            <input asp-for="Roast" class="form-control"/>
+        </div><div class="mb-3">
+            <label asp-for="Quantity"></label>
+            <span asp-validation-for="Quantity" class="text-danger font-weight bold"></span>
+            <input type="number" asp-for="Quantity" class="form-control"/>
+        </div>
+    
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+</div>

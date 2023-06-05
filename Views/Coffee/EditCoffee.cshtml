@@ -1,0 +1,67 @@
+@model Coffee
+@{
+    ViewData["Title"] = Model.Name + " - Coffea and Tea Leaves";
+
+    int? checkSession = Context.Session.GetInt32("UUID");
+    Console.WriteLine(checkSession);
+    
+    
+}
+
+
+<div class="container d-flex justify-content-between">
+    <div class="" style="width: 19rem;">
+        <img class="card-img-top" src="@Model.ImgUrl" alt="@Model.Name">
+        <div class="card-body">
+            <h2 class="card-title">@Model.Name</h2>
+            <div class="card-text">$@Model.Price</div>
+            <div class="card-text mb-1">Region: @Model.Region</div>
+            <div class="card-text mb-1">Roast: @Model.Roast</div>
+        </div>
+    </div>
+    
+    
+    
+    
+    <form
+            class="shadow p-3 rounded"
+            style="width: 50em"
+            asp-controller="Coffee"
+            asp-action="UpdateCoffee"
+            asp-route-editCoffeeId="@Model.CoffeeId"
+            method="POST">
+    
+            <div class="mb-3">
+                <label asp-for="Name"></label>
+                <span asp-validation-for="Name" class="text-danger font-weight bold"></span>
+                <input asp-for="Name" class="form-control" value="@Model.Name"/>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Price"></label>
+                <span asp-validation-for="Price" class="text-danger font-weight bold"></span>
+                <input asp-for="Price" type="number" class="form-control "/>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ImgUrl"></label>
+                <span asp-validation-for="ImgUrl" class="text-danger font-weight bold"></span>
+                <input asp-for="ImgUrl" class="form-control"/>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Region"></label>
+                <span asp-validation-for="Region" class="text-danger font-weight bold"></span>
+                <input asp-for="Region" class="form-control"/>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Roast"></label>
+                <span asp-validation-for="Roast" class="text-danger font-weight bold"></span>
+                <input asp-for="Roast" class="form-control"/>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Quantity"></label>
+                <span asp-validation-for="Quantity" class="text-danger font-weight bold"></span>
+                <input type="number" asp-for="Quantity" class="form-control"/>
+            </div>
+    
+            <button class="btn btn-success">Update</button>
+        </form>
+</div>

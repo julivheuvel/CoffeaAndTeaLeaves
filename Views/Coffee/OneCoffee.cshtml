@@ -1,0 +1,38 @@
+@model ParentViewModel
+
+@{
+    ViewData["Title"] = Model.Coffee.Name + " - Coffea and Tea Leaves";
+
+    int? checkSession = Context.Session.GetInt32("UUID");
+    Console.WriteLine(checkSession);
+    
+    
+}
+
+
+
+<div class="mt-1" style="width: 19rem;">
+    <img class="card-img-top" src="@Model.Coffee.ImgUrl" alt="@Model.Coffee.Name">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-cente mb-2r">
+            <h2 class="card-title">@Model.Coffee.Name</h4>
+            <div class="card-text">$@Model.Coffee.Price</div>
+        </div>
+        <div class="card-text mb-1">Region: @Model.Coffee.Region</div>
+            <div class="card-text mb-1">Roast: @Model.Coffee.Roast</div>
+            @if(@Context.Session.GetInt32("UUID") == null) {}
+            else if(@Context.Session.GetInt32("UUID") == 1 || Model.User.Admin){
+                <div class="card-text mb-1">Quantity: @Model.Coffee.Quantity</div>
+            }
+            <div class="d-flex justify-content-between align-items-center">
+                @if(Model.Coffee.Quantity > 0 && checkSession > 0) {
+                    <div class="btn btn-success p-1 mb-1">Add to Cart</div>
+                }
+                @if(@Context.Session.GetInt32("UUID") == null) {}
+                else if(@Context.Session.GetInt32("UUID") == 1 || Model.User.Admin){
+                    <a href="/candt/coffee/@Model.Coffee.CoffeeId/edit" class="text-success">Edit</a>
+                }
+
+        </div>
+    </div>
+</div>

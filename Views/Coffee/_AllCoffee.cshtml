@@ -1,0 +1,41 @@
+@model List<Coffee>
+
+
+
+<div class="container d-flex justify-content-evenly mt-4 gap-1 flex-wrap">
+
+    @foreach(Coffee coffee in Model)
+    {
+        <div class="card mt-2" style="width: 19rem;">
+            <img class="card-img-top" src="@coffee.ImgUrl" alt="@coffee.Name">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">@coffee.Name</h4>
+                    <div class="card-text">$@coffee.Price</div>
+                </div>
+                <div class="card-text mb-1">Region: @coffee.Region</div>
+                <div class="card-text mb-1">Roast: @coffee.Roast</div>
+                <div class="card-text mb-1">Quantity: @coffee.Quantity</div>
+                @if(@coffee.Quantity == 0 ) {
+                    <h5 class="text-danger">Out Of Stock!!</h5>
+                }
+                else if(@coffee.Quantity < 51){
+                    <h5 class="text-warning">Low Stock!!</h5>
+                }
+                <div class="card-text mb-1">Added on: @coffee.CreatedAt</div>
+                <div class="card-text mb-1">Last Updated: @coffee.UpdatedAt</div>
+                <div class="d-flex gap-5">
+                    <a href="/candt/coffee/@coffee.CoffeeId/view" class="text-success">View</a>
+                    <form 
+                        asp-controller="Coffee" 
+                        asp-action="DeleteCoffee"
+                        asp-route-deletedCoffeeId="@coffee.CoffeeId"
+                        method="POST">
+                        <button class="link link-danger border-0 bg-transparent">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

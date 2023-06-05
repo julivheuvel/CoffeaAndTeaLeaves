@@ -1,0 +1,72 @@
+@model ParentViewModel
+
+@{
+    ViewData["Title"] = "New Contact Form - Coffea and Tea Leaves";
+
+    int? checkSession = Context.Session.GetInt32("UUID");
+    Console.WriteLine(checkSession);
+    
+}
+
+
+<div class="container">
+    <h1>New Contact Info</h1>
+
+
+    <form 
+        class="shadow p-3 rounded"
+        asp-controller="Contact" 
+        asp-action="CreateContact"
+        method="POST">
+    
+        <div class="mb-3">
+            <label asp-for="@Model.Contact.FirstName"></label>
+            <span asp-validation-for="@Model.Contact.FirstName" class="text-danger font-weight bold"></span>
+            <input asp-for="@Model.Contact.FirstName" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="@Model.Contact.LastName"></label>
+            <span asp-validation-for="@Model.Contact.LastName" class="text-danger font-weight bold"></span>
+            <input asp-for="@Model.Contact.LastName" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="@Model.Contact.Email"></label>
+            <span asp-validation-for="@Model.Contact.Email" class="text-danger font-weight bold"></span>
+            <input asp-for="@Model.Contact.Email" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="@Model.Contact.Address"></label>
+            <span asp-validation-for="@Model.Contact.Address" class="text-danger font-weight bold"></span>
+            <input asp-for="@Model.Contact.Address" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="@Model.Contact.SecondaryAddress"></label>
+            <span asp-validation-for="@Model.Contact.SecondaryAddress" class="text-danger font-weight bold"></span>
+            <input asp-for="@Model.Contact.SecondaryAddress" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="@Model.Contact.City"></label>
+            <span asp-validation-for="@Model.Contact.City" class="text-danger font-weight bold"></span>
+            <input asp-for="@Model.Contact.City" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="@Model.Contact.Country"></label>
+            <span asp-validation-for="@Model.Contact.Country" class="text-danger font-weight bold"></span>
+            <input asp-for="@Model.Contact.Country" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="@Model.Contact.PostalCode"></label>
+            <span asp-validation-for="@Model.Contact.PostalCode" class="text-danger font-weight bold"></span>
+            <input asp-for="@Model.Contact.PostalCode" class="form-control"/>
+        </div>
+    
+        <button class="btn btn-success">Submit</button>
+    </form>
+</div>

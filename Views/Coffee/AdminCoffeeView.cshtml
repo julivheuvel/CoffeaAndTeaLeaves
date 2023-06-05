@@ -1,0 +1,22 @@
+@model ParentViewModel
+
+@{
+    ViewData["Title"] = "Admin Coffee Dashboard - Coffea and Tea Leaves";
+}
+
+<div class="container">
+    
+    <div class="d-flex justify-content-between">
+        <h1><span class="text-warning">Primary Admin</span> Coffee Dashboard</h1>
+        <a href="/candt/coffee" class="text-warning">user view</a>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            @await Html.PartialAsync("_NewCoffee", Model.Coffee)
+            @await Html.PartialAsync("_AllCoffee.cshtml", Model.AllCoffees)
+        </div>
+    </div>
+
+</div>

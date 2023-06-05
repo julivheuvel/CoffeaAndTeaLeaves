@@ -1,0 +1,22 @@
+@model Pin
+
+
+
+<div class="pt-3">
+    @* <h1>@Model.Poster.Username</h1? *@
+
+    <form 
+        class="shadow p-3 rounded"
+        asp-controller="Pin" 
+        asp-action="NewPin"
+        method="POST">
+    
+        <div class="mb-3">
+            <h3>Add New Content</h3>
+            <span asp-validation-for="Content" class="text-danger font-weight bold"></span>
+            <textarea asp-for="Content" class="form-control"></textarea>
+        </div>
+    
+        <button class="btn btn-success">Submit</button>
+    </form>
+</div>

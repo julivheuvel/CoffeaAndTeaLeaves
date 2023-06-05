@@ -1,0 +1,58 @@
+@model User
+
+@{
+    ViewData["Title"] = "Register - Coffea and Tea Leaves";
+}
+
+<div class="container">
+    <h1>Register</h1>
+    
+
+    <form 
+        class="shadow p-3 rounded"
+        asp-controller="User" 
+        asp-action="RegisterUser"
+        method="POST">
+
+        <div class="mb-3">
+            <label asp-for="FirstName"></label>
+            <span asp-validation-for="FirstName" class="text-danger font-weight bold"></span>
+            <input asp-for="FirstName" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="LastName"></label>
+            <span asp-validation-for="LastName" class="text-danger font-weight bold"></span>
+            <input asp-for="LastName" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Username"></label>
+            <span asp-validation-for="Username" class="text-danger font-weight bold"></span>
+            <input asp-for="Username" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email"></label>
+            <span asp-validation-for="Email" class="text-danger font-weight bold"></span>
+            <input asp-for="Email" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Birthday"></label>
+            <span asp-validation-for="Birthday" class="text-danger font-weight bold"></span>
+            <input asp-for="Birthday" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password"></label>
+            <span asp-validation-for="Password" class="text-danger font-weight bold"></span>
+            <input asp-for="Password" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ConfirmPassword"></label>
+            <span asp-validation-for="ConfirmPassword" class="text-danger font-weight bold"></span>
+            <input asp-for="ConfirmPassword" class="form-control"/>
+        </div>
+
+        <div class="container d-flex gap-2 align-items-center">
+            <button class="btn btn-success">Register</button>
+            <a href="/candt/user/login">Login</a>
+        </div>
+    </form>
+</div>

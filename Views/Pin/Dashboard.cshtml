@@ -1,0 +1,102 @@
+@model ParentViewModel
+
+@{
+    ViewData["Title"] = "Dashboard - Coffea and Tea Leaves";
+}
+
+@* @Context.Session.GetString("Username")
+@Context.Session.GetString("Name")
+@Context.Session.GetInt32("UUID") *@
+
+
+@{
+
+    @* =================ADMIN VIEW================= *@
+        
+    
+    if(Model.User.Admin)
+    {
+        <h1><span class="text-warning">Admin</span> Dashboard</h1>
+        
+        <div class="d-flex justify-content-between">
+            <small class="m-0 p-0 text-muted card-body">Welcome @Context.Session.GetString("Name")</small>
+            @if(Model.User.AdminRequest == 0 && Model.User.UserId != 1)
+            {
+                <form 
+                    asp-controller="User" 
+                    asp-action="RemoveAdminAccess"
+                    asp-route-adminUserId="@Model.User.UserId"
+                    method="POST"
+                    >
+                        <button class="text-warning link border-0 bg-transparent">Remove Admin Request</button>
+                </form>
+            }
+            else if(Model.User.UserId != 1)
+            {
+                <form 
+                        asp-controller="User" 
+                        asp-action="IgnoreAdminRequest"
+                        asp-route-ignoreUserId="@Model.User.UserId"
+                        method="POST">
+                    
+                        <button class="text-warning link border-0 bg-transparent">Remove Request</button>
+                    </form>
+            }
+        </div>
+
+
+        @* view all pins *@
+        @* view names *@
+        <div class="d-flex justify-content-center align-items-start border">
+            @await Html.PartialAsync("_AdminAllPins", Model.AllPins)
+            @await Html.PartialAsync("_AdminAllUsers", Model.AllUsers)
+        </div>
+    }
+
+
+
+
+
+
+    @* =================NORMAL VIEW================= *@
+    
+    else
+    {
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Dashboard</h1>
+            @if(Model.User.AdminRequest == 0)
+            {
+                <form 
+                    asp-controller="User" 
+                    asp-action="RequestAdminAccess"
+                    asp-route-adminUserId="@Model.User.UserId"
+                    method="POST"
+                    >
+                        <button class="text-muted link border-0 bg-transparent">Request Admin Access</button>
+                </form>
+            }
+            else if(Model.User.AdminRequest == 1)
+            {
+                <form 
+                    asp-controller="User" 
+                    asp-action="RemoveAdminAccess"
+                    asp-route-adminUserId="@Model.User.UserId"
+                    method="POST"
+                    >
+                        <button class="text-warning link border-0 bg-transparent">Remove Admin Request</button>
+                </form>
+            }
+        </div>
+        
+        
+        @* view all pins *@
+        @await Html.PartialAsync("_NewPin", Model.Pin)
+        @await Html.PartialAsync("_AllPins", Model.AllPins)
+
+        
+
+    }
+
+
+
+}

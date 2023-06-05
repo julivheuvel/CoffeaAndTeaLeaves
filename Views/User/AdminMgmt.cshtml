@@ -1,0 +1,45 @@
+@model ParentViewModel
+
+
+
+<h1>All Admin Users</h1>
+@foreach(User user in Model.AllUsers) 
+{
+    @if(user.Admin){
+
+        <div class="container d-flex gap-3">
+            <div>@user.FirstName @user.LastName</div>
+
+            @if(!user.PrimaryAdmin && user.UserId != 1) 
+            {   
+                <form 
+                    class=""
+                    asp-controller="User" 
+                    asp-action="SetPrimaryAdmin"
+                    asp-route-primaryAdminUserId = "@user.UserId"
+                    method="POST">
+                
+                <button class="text-success border-0 bg-transparent p-0">Set to Primary Admin</button>
+                </form>
+            }
+            else if(user.UserId != 1)
+            {
+                <form 
+                    class=""
+                    asp-controller="User" 
+                    asp-action="DeletePrimaryAdmin"
+                    asp-route-primaryAdminUserId = "@user.UserId"
+                    method="POST">
+                
+                <button class="text-success border-0 bg-transparent p-0">Delete Primary Admin</button>
+                </form>
+            }
+
+
+        </div>
+
+
+    }
+
+
+}
